@@ -2,3 +2,4 @@ google-generativeai
 chromadb
 flask
 markdown2
+uvicorn
