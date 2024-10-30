@@ -153,7 +153,7 @@
       function addMessage(content, className) {
         const messageDiv = document.createElement("div");
         messageDiv.classList.add("message", className);
-        messageDiv.textContent = content;
+        messageDiv.innerHTML = content; // Render HTML content
         chatBody.appendChild(messageDiv);
         chatBody.scrollTop = chatBody.scrollHeight;
       }
