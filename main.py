@@ -4,10 +4,10 @@ from ai_engine import ai_response
 from ragdata import rag_query
 import markdown2 
 
-#installed deepdocs.ai for maintainence of the repo for better documentation
+
 
 app = Flask(__name__)
-app.secret_key = "Radheradhe"
+app.secret_key = "RadheKrishna"
 
 
 ###I created this chatbot such that it can handle multiple users but simpilcity for now we willl be using a single user
