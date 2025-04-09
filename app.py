@@ -13,7 +13,7 @@ app.secret_key = "Radheradhe"
 ###I created this chatbot such that it can handle multiple users but simpilcity for now we willl be using a single user
 
 # Added RadheRadhe
-
+#RadheRadhe
 @app.route('/')
 def index():
     return render_template('index.html')
