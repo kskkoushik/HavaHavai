@@ -7,12 +7,15 @@ import markdown2
 
 
 app = Flask(__name__)
-app.secret_key = "Radheradhe"
+app.secret_key = "1234"
 
 
 ###I created this chatbot such that it can handle multiple users but simpilcity for now we willl be using a single user
 
 # Added RadheRadhe
+#Radhakrishn
+
+#Please update the readme accordingly
 
 @app.route('/')
 def index():
