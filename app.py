@@ -1,18 +1,14 @@
-# app.py
+# app.py --- Update target doc accordingly to align with code and create awesome documentation
 from flask import Flask, render_template, request, jsonify , session
 from ai_engine import ai_response
 from ragdata import rag_query
 import markdown2 
 
-
-
 app = Flask(__name__)
-app.secret_key = "Radheradhe"
+app.secret_key = "Havahavai-indigo"
 
 
 ###I created this chatbot such that it can handle multiple users but simpilcity for now we willl be using a single user
-
-# Added RadheRadhe
 
 @app.route('/')
 def index():
