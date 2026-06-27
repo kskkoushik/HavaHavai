@@ -1,0 +1,6 @@
+    # ai_engine.py (example)
+    from flask import Flask, render_template, request, jsonify, session, redirect, url_for, flash
+
+    app = Flask(__name__)
+    app.secret_key = 'your_super_secret_key_here' # <-- ADD THIS LINE OR ENSURE IT'S SET
+    # It's recommended to load this from an environment variable or config file in production.
