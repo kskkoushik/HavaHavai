@@ -1,0 +1,85 @@
+# Add these imports if not already present
+from flask import Flask, render_template, request, jsonify, session, redirect, url_for, flash
+from functools import wraps # Used for the login_required decorator
+
+# Assuming 'app = Flask(__name__)' is already defined in this file.
+# And 'app.secret_key' is set for session management.
+
+# --- New Authentication Routes and Helper ---
+
+def login_required(f):
+    """
+    Decorator to restrict access to routes that require authentication.
+    If the user is not logged in, they will be redirected to the login page.
+    """
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if 'logged_in' not in session or not session['logged_in']:
+            flash('Please log in to access this page.', 'info')
+            return redirect(url_for('login'))
+        return f(*args, **kwargs)
+    return decorated_function
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    """
+    Handles user login.
+    - GET: Displays the login form.
+    - POST: Processes the submitted login credentials.
+            If credentials are valid, sets a session variable and redirects to the home page.
+            Otherwise, flashes an error message and re-renders the login form.
+    """
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+
+        # --- Placeholder for actual credential validation ---
+        # In a real application, you would query a database, hash passwords,
+        # and compare them securely.
+        # For demonstration, we'll use a hardcoded username and password.
+        if username == 'admin' and password == 'password123':
+            session['logged_in'] = True
+            session['username'] = username # Store username in session
+            flash('Logged in successfully!', 'success')
+            return redirect(url_for('index')) # Redirect to your main page (e.g., chat)
+        else:
+            flash('Invalid username or password. Please try again.', 'danger')
+    
+    # For GET requests or failed POST requests, render the login page
+    return render_template('login.html')
+
+@app.route('/logout')
+def logout():
+    """
+    Logs out the current user by clearing the session.
+    Redirects the user to the login page after logging out.
+    """
+    session.pop('logged_in', None)
+    session.pop('username', None) # Clear username from session as well
+    flash('You have been logged out.', 'info')
+    return redirect(url_for('login'))
+
+# --- Example of how to protect an existing route ---
+# If you want to protect your main chat page (index.html)
+# you would add the @login_required decorator to its route.
+
+# @app.route('/')
+# @login_required # Uncomment this line to protect the index page
+# def index():
+#     """
+#     Renders the main chat interface.
+#     """
+#     return render_template('index.html')
+
+# Assuming your existing ai_response function is something like this:
+# @app.route('/ai_response', methods=['POST'])
+# @login_required # You might want to protect this endpoint too
+# def ai_response():
+#     """
+#     Handles AI response generation based on user input.
+#     """
+#     user_message = request.json.get('message')
+#     # ... existing AI logic ...
+#     return jsonify({'response': 'AI response here'})
+
+# ... rest of your ai_engine.py code ...
